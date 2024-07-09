@@ -1,6 +1,7 @@
 package com.d2mp.foro.controller.usuarios;
 
 import com.d2mp.foro.dto.usuarios.DTOListarUsuarios;
+import com.d2mp.foro.model.usuarios.Usuario;
 import com.d2mp.foro.service.usuarios.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,5 +23,13 @@ public class UsuarioController {
     @PostMapping("/{id}")
     public Optional<DTOListarUsuarios> listarUsuario(@PathVariable Long id){
         return usuarioService.listarUsuario(id);
+    }
+    @PutMapping("/{id}")
+    public void desactivarUsuario(@PathVariable Long id){
+        usuarioService.desactivarUsuario(id);
+    }
+    @DeleteMapping("/{id}")
+    public void eliminarUsuario(@PathVariable Long id){
+        usuarioService.eliminarUsuario(id);
     }
 }
