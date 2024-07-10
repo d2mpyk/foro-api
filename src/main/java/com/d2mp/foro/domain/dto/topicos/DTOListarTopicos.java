@@ -1,6 +1,6 @@
-package com.d2mp.foro.dto.topicos;
+package com.d2mp.foro.domain.dto.topicos;
 
-import com.d2mp.foro.model.Topico;
+import com.d2mp.foro.domain.model.Topico;
 
 import java.time.LocalDateTime;
 

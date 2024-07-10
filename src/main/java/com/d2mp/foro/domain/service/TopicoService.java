@@ -1,15 +1,15 @@
-package com.d2mp.foro.service;
+package com.d2mp.foro.domain.service;
 
-import com.d2mp.foro.dto.topicos.DTOActualizarTopico;
-import com.d2mp.foro.dto.topicos.DTOListarTopicos;
-import com.d2mp.foro.dto.topicos.DTORegistrarTopico;
+import com.d2mp.foro.domain.repository.CursoRepository;
+import com.d2mp.foro.domain.repository.TopicoRepository;
+import com.d2mp.foro.domain.dto.topicos.DTOActualizarTopico;
+import com.d2mp.foro.domain.dto.topicos.DTOListarTopicos;
+import com.d2mp.foro.domain.dto.topicos.DTORegistrarTopico;
 import com.d2mp.foro.infra.errores.IntegrityCheck;
-import com.d2mp.foro.model.Curso;
-import com.d2mp.foro.model.Topico;
-import com.d2mp.foro.model.Usuario;
-import com.d2mp.foro.repository.CursoRepository;
-import com.d2mp.foro.repository.TopicoRepository;
-import com.d2mp.foro.repository.UsuarioRepository;
+import com.d2mp.foro.domain.model.Curso;
+import com.d2mp.foro.domain.model.Topico;
+import com.d2mp.foro.domain.model.Usuario;
+import com.d2mp.foro.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +31,8 @@ public class TopicoService {
     }
 
     public Optional<DTOListarTopicos> listarTopico(Long id) {
+        if (topicoRepository.findById(id).isEmpty())
+            throw new IntegrityCheck("El tópico no se encuentra registrado, Verifique el Id");
         return topicoRepository.findById(id).map(DTOListarTopicos::new);
     }
 
@@ -57,8 +59,8 @@ public class TopicoService {
         if (usuarioRepository.findById(dtoActualizarTopico.usuario_id()).isEmpty())
             throw new IntegrityCheck("El usuario no se encuentra registrado");
         Usuario usuario = usuarioRepository.findById(dtoActualizarTopico.usuario_id()).get();
-        if (topicoRepository.findByTitulo(dtoActualizarTopico.titulo()).isPresent())
-            throw new IntegrityCheck("El tópico ya se encuentra registrado");
+        if (topicoRepository.findById(dtoActualizarTopico.id()).isEmpty())
+            throw new IntegrityCheck("El tópico no se encuentra registrado, Verifique el Id");
         Topico topicoActualizar = topicoRepository.getReferenceById(dtoActualizarTopico.id());
         topicoActualizar.actualizarTopico(dtoActualizarTopico, curso, usuario);
         topicoRepository.save(topicoActualizar);

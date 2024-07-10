@@ -1,6 +1,6 @@
-package com.d2mp.foro.repository;
+package com.d2mp.foro.domain.repository;
 
-import com.d2mp.foro.model.Usuario;
+import com.d2mp.foro.domain.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

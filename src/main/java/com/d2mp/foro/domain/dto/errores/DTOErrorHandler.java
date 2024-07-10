@@ -1,4 +1,4 @@
-package com.d2mp.foro.dto.errores;
+package com.d2mp.foro.domain.dto.errores;
 
 import org.springframework.validation.FieldError;
 

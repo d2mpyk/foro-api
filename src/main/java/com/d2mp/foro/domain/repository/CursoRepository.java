@@ -1,6 +1,6 @@
-package com.d2mp.foro.repository;
+package com.d2mp.foro.domain.repository;
 
-import com.d2mp.foro.model.Curso;
+import com.d2mp.foro.domain.model.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

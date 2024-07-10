@@ -1,7 +1,7 @@
-package com.d2mp.foro.dto.usuarios;
+package com.d2mp.foro.domain.dto.usuarios;
 
-import com.d2mp.foro.enums.Perfil;
-import com.d2mp.foro.model.Usuario;
+import com.d2mp.foro.domain.enums.Perfil;
+import com.d2mp.foro.domain.model.Usuario;
 
 public record DTOListarUsuarios(
         Long id,

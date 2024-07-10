@@ -1,12 +1,15 @@
 package com.d2mp.foro.infra.errores;
 
-import com.d2mp.foro.dto.errores.DTOErrorHandler;
+import com.d2mp.foro.domain.dto.errores.DTOErrorHandler;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@RestControllerAdvice
 public class ErrorHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity ilegalArgument(Exception error){
@@ -28,6 +31,10 @@ public class ErrorHandler {
     }
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity error404Handler(){
+        return ResponseEntity.notFound().build();
+    }
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity error405Handler(){
         return ResponseEntity.notFound().build();
     }
 }

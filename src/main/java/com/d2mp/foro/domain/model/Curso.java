@@ -1,6 +1,6 @@
-package com.d2mp.foro.model;
+package com.d2mp.foro.domain.model;
 
-import com.d2mp.foro.enums.Categoria;
+import com.d2mp.foro.domain.enums.Categoria;
 import jakarta.persistence.*;
 import lombok.*;
 

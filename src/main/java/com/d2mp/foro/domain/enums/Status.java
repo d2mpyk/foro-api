@@ -1,4 +1,4 @@
-package com.d2mp.foro.enums;
+package com.d2mp.foro.domain.enums;
 
 public enum Status {
     ABIERTO("Abierto"),

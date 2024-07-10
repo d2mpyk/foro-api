@@ -1,11 +1,11 @@
-package com.d2mp.foro.service;
+package com.d2mp.foro.domain.service;
 
-import com.d2mp.foro.dto.usuarios.DTOActualizarUsuarios;
-import com.d2mp.foro.dto.usuarios.DTOListarUsuarios;
-import com.d2mp.foro.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
+import com.d2mp.foro.domain.dto.usuarios.DTOListarUsuarios;
+import com.d2mp.foro.domain.dto.usuarios.DTORegistroUsuario;
 import com.d2mp.foro.infra.errores.IntegrityCheck;
-import com.d2mp.foro.model.Usuario;
-import com.d2mp.foro.repository.UsuarioRepository;
+import com.d2mp.foro.domain.model.Usuario;
+import com.d2mp.foro.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,43 +23,46 @@ public class UsuarioService {
     }
 
     public Optional<DTOListarUsuarios> listarUsuario(Long id) {
+        if (usuarioRepository.findById(id).isEmpty())
+            throw new IntegrityCheck("El usuario no se encuentra registrado. Verifique el id.");
         return usuarioRepository.findById(id).map(DTOListarUsuarios::new);
     }
 
     public void eliminarUsuario(Long id) {
-        if (usuarioRepository.findById(id).isPresent())
-            usuarioRepository.deleteById(id);
-        else System.out.println("El usuario no se encuentra registrado");
+        if (usuarioRepository.findById(id).isEmpty())
+            throw new IntegrityCheck("El usuario no se encuentra registrado. Verifique el id.");
+        else usuarioRepository.deleteById(id);
+
     }
 
     public void desactivarUsuario(Long id) {
-        if (usuarioRepository.findById(id).isPresent()){
+        if (usuarioRepository.findById(id).isEmpty())
+            throw new IntegrityCheck("El usuario no se encuentra registrado. Verifique el id.");
+        else {
             Usuario usuario = usuarioRepository.getReferenceById(id);
             usuario.setActivo(false);
             usuarioRepository.save(usuario);
         }
-        else System.out.println("El usuario no se encuentra registrado");
     }
 
     public Optional<DTOListarUsuarios> actualizarUsuario(DTOActualizarUsuarios dtoActualizarUsuarios){
-        Optional<Usuario> usuario = usuarioRepository.findById(dtoActualizarUsuarios.id());
-        if (usuario.isPresent()){
-            Usuario usuarioEncontrado = usuarioRepository.getReferenceById(usuario.get().getId());
+        if (usuarioRepository.findById(dtoActualizarUsuarios.id()).isEmpty())
+            throw new IntegrityCheck("El usuario no se encuentra registrado. Verifique el id.");
+        else {
+            Usuario usuarioEncontrado = usuarioRepository.getReferenceById(dtoActualizarUsuarios.id());
             usuarioEncontrado.actualizarUsuario(dtoActualizarUsuarios);
             usuarioRepository.save(usuarioEncontrado);
             return Optional.of(new DTOListarUsuarios(usuarioEncontrado));
-        } else {
-            throw new IntegrityCheck("El usuario no existe. Verifique el id.");
         }
     }
 
     public DTOListarUsuarios registrarUsuario(DTORegistroUsuario dtoRegistroUsuario) {
-        if (usuarioRepository.findByEmail(dtoRegistroUsuario.email()).isEmpty()){
+        if (usuarioRepository.findByEmail(dtoRegistroUsuario.email()).isPresent())
+            throw new IntegrityCheck("El usuario ya se encuentra registrado.");
+        else {
             Usuario usuarioRegistro = new Usuario(dtoRegistroUsuario);
             usuarioRepository.save(usuarioRegistro);
             return new DTOListarUsuarios(usuarioRegistro);
-        } else {
-            throw new IntegrityCheck("El usuario ya se encuentra registrado.");
         }
     }
 }

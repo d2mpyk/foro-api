@@ -1,8 +1,8 @@
-package com.d2mp.foro.model;
+package com.d2mp.foro.domain.model;
 
-import com.d2mp.foro.dto.usuarios.DTOActualizarUsuarios;
-import com.d2mp.foro.dto.usuarios.DTORegistroUsuario;
-import com.d2mp.foro.enums.Perfil;
+import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
+import com.d2mp.foro.domain.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.domain.enums.Perfil;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,7 +34,9 @@ public class Usuario {
         this.nombre = dtoRegistroUsuario.nombre();
         this.email = dtoRegistroUsuario.email();
         this.contrasena = dtoRegistroUsuario.contrasena();
-        this.perfil = Perfil.ESTUDIANTE;
+        if (dtoRegistroUsuario.perfil() != null)
+            this.perfil = Perfil.fromString(dtoRegistroUsuario.perfil());
+        else this.perfil = Perfil.ESTUDIANTE;
         this.activo = true;
     }
     public void actualizarUsuario(DTOActualizarUsuarios dtoActualizarUsuarios) {

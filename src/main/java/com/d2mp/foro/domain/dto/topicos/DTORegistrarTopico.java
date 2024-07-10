@@ -1,4 +1,4 @@
-package com.d2mp.foro.dto.topicos;
+package com.d2mp.foro.domain.dto.topicos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

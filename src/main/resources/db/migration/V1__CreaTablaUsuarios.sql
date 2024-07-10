@@ -3,7 +3,7 @@ CREATE TABLE usuarios(
     nombre VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
-    perfil TINYINT NOT NULL DEFAULT 2,
+    perfil TINYINT NOT NULL,
     activo BIT NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 );

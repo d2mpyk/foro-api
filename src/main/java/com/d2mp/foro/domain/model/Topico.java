@@ -1,8 +1,8 @@
-package com.d2mp.foro.model;
+package com.d2mp.foro.domain.model;
 
-import com.d2mp.foro.dto.topicos.DTOActualizarTopico;
-import com.d2mp.foro.dto.topicos.DTORegistrarTopico;
-import com.d2mp.foro.enums.Status;
+import com.d2mp.foro.domain.dto.topicos.DTORegistrarTopico;
+import com.d2mp.foro.domain.dto.topicos.DTOActualizarTopico;
+import com.d2mp.foro.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,6 +49,16 @@ public class Topico {
             this.titulo = dtoActualizarTopico.titulo();
         if (dtoActualizarTopico.mensaje() != null)
             this.mensaje = dtoActualizarTopico.mensaje();
+        if (dtoActualizarTopico.fecha_creacion() != null)
+            this.fecha_creacion = dtoActualizarTopico.fecha_creacion();
+        else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            this.fecha_creacion = LocalDateTime.parse(now.format(formatter),formatter);
+        }
+        if (dtoActualizarTopico.status() != null )
+            this.status = Status.fromString(dtoActualizarTopico.status());
+        else this.status = Status.ABIERTO;
         if (curso != null)
             this.curso = curso;
         if (autor != null)
