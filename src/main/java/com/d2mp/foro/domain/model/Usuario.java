@@ -1,7 +1,7 @@
 package com.d2mp.foro.domain.model;
 
 import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
-import com.d2mp.foro.domain.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.domain.enums.Perfil;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,16 +26,16 @@ public class Usuario {
     private Perfil perfil;
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Topico> topicos;
-//    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    List<Respuesta> respuestas;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<Respuesta> respuestas;
     private Boolean activo;
 
-    public Usuario(DTORegistroUsuario dtoRegistroUsuario) {
-        this.nombre = dtoRegistroUsuario.nombre();
-        this.email = dtoRegistroUsuario.email();
-        this.contrasena = dtoRegistroUsuario.contrasena();
-        if (dtoRegistroUsuario.perfil() != null)
-            this.perfil = Perfil.fromString(dtoRegistroUsuario.perfil());
+    public Usuario(DTORegistrarUsuario dtoRegistrarUsuario) {
+        this.nombre = dtoRegistrarUsuario.nombre();
+        this.email = dtoRegistrarUsuario.email();
+        this.contrasena = dtoRegistrarUsuario.contrasena();
+        if (dtoRegistrarUsuario.perfil() != null)
+            this.perfil = Perfil.fromString(dtoRegistrarUsuario.perfil());
         else this.perfil = Perfil.ESTUDIANTE;
         this.activo = true;
     }

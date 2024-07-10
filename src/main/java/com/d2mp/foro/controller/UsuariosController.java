@@ -2,7 +2,7 @@ package com.d2mp.foro.controller;
 
 import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
 import com.d2mp.foro.domain.dto.usuarios.DTOListarUsuarios;
-import com.d2mp.foro.domain.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.domain.service.UsuarioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -45,8 +45,8 @@ public class UsuariosController {
     }
     @PostMapping
     @Transactional
-    public ResponseEntity<DTOListarUsuarios> registrarUsuario(@RequestBody @Valid DTORegistroUsuario dtoRegistroUsuario){
-        DTOListarUsuarios dtoListarUsuarios = usuarioService.registrarUsuario(dtoRegistroUsuario);
+    public ResponseEntity<DTOListarUsuarios> registrarUsuario(@RequestBody @Valid DTORegistrarUsuario dtoRegistrarUsuario){
+        DTOListarUsuarios dtoListarUsuarios = usuarioService.registrarUsuario(dtoRegistrarUsuario);
         URI url = UriComponentsBuilder.fromPath("/usuarios/{id}").buildAndExpand(dtoListarUsuarios.id()).toUri();
         return ResponseEntity.created(url).body(dtoListarUsuarios);
     }

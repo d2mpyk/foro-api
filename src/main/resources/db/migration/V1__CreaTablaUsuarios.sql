@@ -6,4 +6,4 @@ CREATE TABLE usuarios(
     perfil TINYINT NOT NULL,
     activo BIT NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
-);
+)CHARACTER SET utf8mb4;

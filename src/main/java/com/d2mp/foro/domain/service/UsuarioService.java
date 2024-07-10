@@ -2,7 +2,7 @@ package com.d2mp.foro.domain.service;
 
 import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
 import com.d2mp.foro.domain.dto.usuarios.DTOListarUsuarios;
-import com.d2mp.foro.domain.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.infra.errores.IntegrityCheck;
 import com.d2mp.foro.domain.model.Usuario;
 import com.d2mp.foro.domain.repository.UsuarioRepository;
@@ -56,11 +56,11 @@ public class UsuarioService {
         }
     }
 
-    public DTOListarUsuarios registrarUsuario(DTORegistroUsuario dtoRegistroUsuario) {
-        if (usuarioRepository.findByEmail(dtoRegistroUsuario.email()).isPresent())
+    public DTOListarUsuarios registrarUsuario(DTORegistrarUsuario dtoRegistrarUsuario) {
+        if (usuarioRepository.findByEmail(dtoRegistrarUsuario.email()).isPresent())
             throw new IntegrityCheck("El usuario ya se encuentra registrado.");
         else {
-            Usuario usuarioRegistro = new Usuario(dtoRegistroUsuario);
+            Usuario usuarioRegistro = new Usuario(dtoRegistrarUsuario);
             usuarioRepository.save(usuarioRegistro);
             return new DTOListarUsuarios(usuarioRegistro);
         }

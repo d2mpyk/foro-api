@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity(name = "Topico")
 @Table(name = "topicos")
@@ -31,8 +32,8 @@ public class Topico {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     Usuario autor;
-//    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    List<Respuesta> respuestas;
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    List<Respuesta> respuestas;
 
     public Topico(DTORegistrarTopico dtoRegistrarTopico, Curso curso, Usuario usuario){
         this.titulo = dtoRegistrarTopico.titulo();

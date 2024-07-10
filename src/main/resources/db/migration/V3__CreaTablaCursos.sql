@@ -3,4 +3,4 @@ CREATE TABLE cursos(
     nombre VARCHAR(255) NOT NULL UNIQUE,
     categoria VARCHAR(50) NOT NULL,
     PRIMARY KEY(id)
-);
+)CHARACTER SET utf8mb4;
