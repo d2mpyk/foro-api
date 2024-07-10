@@ -41,13 +41,6 @@ public class UsuarioService {
         else System.out.println("El usuario no se encuentra registrado");
     }
 
-    public Optional<Usuario> getUsuarioByEmail(DTORegistroUsuario dtoRegistroUsuario) {
-        Long id = usuarioRepository.findByEmail(dtoRegistroUsuario.email()).getId();
-        if(id != null) {
-            return usuarioRepository.findById(id);
-        } else return Optional.empty();
-    }
-
     public DTOListarUsuarios actualizarUsuario(DTOActualizarUsuarios dtoActualizarUsuarios){
         Optional<Usuario> usuario = usuarioRepository.findById(dtoActualizarUsuarios.id());
         if (usuario.isPresent()){
