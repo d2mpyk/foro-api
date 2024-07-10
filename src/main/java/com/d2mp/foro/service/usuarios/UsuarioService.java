@@ -1,6 +1,9 @@
 package com.d2mp.foro.service.usuarios;
 
+import com.d2mp.foro.dto.usuarios.DTOActualizarUsuarios;
 import com.d2mp.foro.dto.usuarios.DTOListarUsuarios;
+import com.d2mp.foro.dto.usuarios.DTORegistroUsuario;
+import com.d2mp.foro.infra.errores.IntegrityCheck;
 import com.d2mp.foro.model.usuarios.Usuario;
 import com.d2mp.foro.repository.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,10 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     public Page<DTOListarUsuarios> listarUsuarios(Pageable pageable){
-        return usuarioRepository.findAll(pageable).map(DTOListarUsuarios::new);
+        return usuarioRepository.findByActivoTrue(pageable).map(DTOListarUsuarios::new);
     }
 
     public Optional<DTOListarUsuarios> listarUsuario(Long id) {
@@ -36,5 +39,35 @@ public class UsuarioService {
             usuarioRepository.save(usuario);
         }
         else System.out.println("El usuario no se encuentra registrado");
+    }
+
+    public Optional<Usuario> getUsuarioByEmail(DTORegistroUsuario dtoRegistroUsuario) {
+        Long id = usuarioRepository.findByEmail(dtoRegistroUsuario.email()).getId();
+        if(id != null) {
+            return usuarioRepository.findById(id);
+        } else return Optional.empty();
+    }
+
+    public DTOListarUsuarios actualizarUsuario(DTOActualizarUsuarios dtoActualizarUsuarios){
+        Optional<Usuario> usuario = usuarioRepository.findById(dtoActualizarUsuarios.id());
+        if (usuario.isPresent()){
+            Usuario usuarioEncontrado = usuarioRepository.getReferenceById(usuario.get().getId());
+            usuarioEncontrado.actualizarUsuario(dtoActualizarUsuarios);
+            usuarioRepository.save(usuarioEncontrado);
+            return new DTOListarUsuarios(usuarioEncontrado);
+        } else {
+            throw new IntegrityCheck("El usuario no existe. Verifique el id.");
+        }
+    }
+
+    public DTOListarUsuarios registrarUsuario(DTORegistroUsuario dtoRegistroUsuario) {
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmail(dtoRegistroUsuario.email()));
+        if (usuario.isEmpty()){
+            Usuario usuarioRegistro = new Usuario(dtoRegistroUsuario);
+            usuarioRepository.save(usuarioRegistro);
+            return new DTOListarUsuarios(usuarioRegistro);
+        } else {
+            throw new IntegrityCheck("El usuario ya se encuentra registrado.");
+        }
     }
 }
