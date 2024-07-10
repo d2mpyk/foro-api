@@ -33,3 +33,32 @@ INSERT INTO usuarios(nombre, email, contrasena, perfil) VALUES
 ('Ettie Spellissy','amelley65@rambler.ru','Cameli',2),
 ('Niccolo Anten','cwindrum31@nsw.gov.au','Haighton',2),
 ('Smith Rubery','kaitkeny@telegraph.co.uk','Oliver',1);
+
+INSERT INTO cursos(nombre, categoria) VALUES
+('Bienvenida', 'DESARROLLO_PERSONAL'),
+('Estructura de datos', 'PROGRAMACION'),
+('Introducción a JavaScript', 'FRONTEND'),
+('HTML y CCS Desde Cero', 'FRONTEND'),
+('Programación Orientada a Objetos POO', 'PROGRAMACION'),
+('Git y GitHub', 'PROGRAMACION'),
+('Aprenda React desde cero', 'FRONTEND'),
+('Demanda del mercado', 'DESARROLLO_PERSONAL'),
+('Spring Boot', 'BACKEND'),
+('Spring Boot y JPA', 'BACKEND'),
+('Desarrollar una API Rest en Java', 'BACKEND'),
+('Bases de Datos', 'BACKEND'),
+('Persistencia de datos', 'BACKEND'),
+('Portafolio como carta de presentación', 'DESARROLLO_PERSONAL'),
+('Spring Security', 'BACKEND'),
+('Fundamentos de Agilidad', 'DESARROLLO_PERSONAL');
+
+INSERT INTO topicos(titulo,mensaje,usuario_id,curso_id) VALUES
+('BIENVENIDA','Sean todos bienvenidos a este Foro, acá podrán despejar todas sus dudas',1,1),
+('PRESENTACIÓN','En este espacio pueden presentarse, y comentar algunos detalles sobre ustedes mismos',2,1),
+('No puedo instalar Postgres', 'El instalador muestra el error 0x456', 12, 12),
+('Error conectando a la base de Datos','Tengo problemas para conectar la base de datos, el error es: #1046 - No database selected;',10,12),
+('Error conectando a la BD','Tengo problemas para conectar la base de datos, el error es: #1046 - No database selected;',5,12),
+('Consulta MySQL', '¿Alguno de ustedes sabe como crear una relación entre las tablas de MySQL?',12,12),
+('Visor de Base de Datos','Chicos, ¿Qué administradores de base de datos estan usando ustedes?',7,12),
+('POO', 'No entiendo la sobrecarga de los metodos, que es eso ?',8,5),
+('Error con FlyWay','Tengo problemas para evitar errores en el inicio de la aplicación debidos a las migraciones de Flyway',15,12);
