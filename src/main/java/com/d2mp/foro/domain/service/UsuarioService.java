@@ -32,7 +32,6 @@ public class UsuarioService {
         if (usuarioRepository.findById(id).isEmpty())
             throw new IntegrityCheck("El usuario no se encuentra registrado. Verifique el id.");
         else usuarioRepository.deleteById(id);
-
     }
 
     public void desactivarUsuario(Long id) {

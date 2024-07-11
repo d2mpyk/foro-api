@@ -3,6 +3,8 @@ package com.d2mp.foro.domain.dto.respuestas;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 public record DTORegistrarRespuesta(
         @NotBlank(message = "El mensaje es obligatorio")
         String mensaje,
@@ -16,6 +18,6 @@ public record DTORegistrarRespuesta(
         this.mensaje = mensaje;
         this.topico_id = topico_id;
         this.usuario_id = usuario_id;
-        this.solucion = solucion;
+        this.solucion = Objects.requireNonNullElse(solucion, false);
     }
 }

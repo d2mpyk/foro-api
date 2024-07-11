@@ -11,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -31,12 +33,16 @@ public class TopicosController {
     @PostMapping
     @Transactional
     public ResponseEntity<Optional<DTOListarTopicos>> registrarTopico(@RequestBody @Valid DTORegistrarTopico dtoRegistrarTopico){
-        return ResponseEntity.ok(topicoService.registrarTopico(dtoRegistrarTopico));
+        Optional<DTOListarTopicos> dtoListarTopicos = topicoService.registrarTopico(dtoRegistrarTopico);
+        URI url = UriComponentsBuilder.fromPath("/topicos/{id}").buildAndExpand(dtoListarTopicos.get().id()).toUri();
+        return ResponseEntity.created(url).body(dtoListarTopicos);
     }
     @PutMapping
     @Transactional
     public ResponseEntity<Optional<DTOListarTopicos>> actualizarTopico(@RequestBody @Valid DTOActualizarTopico dtoActualizarTopico){
-        return ResponseEntity.ok(topicoService.actualizarTopico(dtoActualizarTopico));
+        Optional<DTOListarTopicos> dtoListarTopicos = topicoService.actualizarTopico(dtoActualizarTopico);
+        URI url = UriComponentsBuilder.fromPath("/topicos/{id}").buildAndExpand(dtoListarTopicos.get().id()).toUri();
+        return ResponseEntity.created(url).body(dtoListarTopicos);
     }
     @DeleteMapping("/{id}")
     @Transactional

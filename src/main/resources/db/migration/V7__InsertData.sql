@@ -61,4 +61,27 @@ INSERT INTO topicos(titulo,mensaje,usuario_id,curso_id) VALUES
 ('Consulta MySQL', '¿Alguno de ustedes sabe como crear una relación entre las tablas de MySQL?',12,12),
 ('Visor de Base de Datos','Chicos, ¿Qué administradores de base de datos estan usando ustedes?',7,12),
 ('POO', 'No entiendo la sobrecarga de los metodos, que es eso ?',8,5),
+('JPA y Persistencia','Ayuda!!!, mi app no está guardando nada en la base de datos',15,10),
 ('Error con FlyWay','Tengo problemas para evitar errores en el inicio de la aplicación debidos a las migraciones de Flyway',15,12);
+
+INSERT INTO respuestas(mensaje,topico_id,usuario_id,solucion) VALUES
+('Gracias, estoy muy emocionado por participar al maximo en este programa !!!',1,21,false),
+('Siiiii.... estamos aqui, que empiece la programación, Gracias Oracle, Gracias Alura Latan',1,18,false),
+('Hola! soy Juan Lugo y me gustan los gatos, la programación y el anime',2,12,false),
+('Hola a tod@s, espero que nos conozcamos, soy de Paraguay ay ay Paraguay',2,15,false),
+('Intenta instalarlo con privilegios de administrador',3,5,false),
+('Solo tienes que descargar el paquete desde la pagina oficial https://www.postgresql.org/download/',3,4,true),
+('Ya probaste si el servidor esta activo?',4,7,false),
+('Debes crear la base de Datos primero!',4,9,true),
+('Este tópico esta repetido, puedes encontrar la solución en el topico id: 4',5,10,true),
+('Puedes revisar la documentación oficial en la pagina web, alli están todas los tipos de relaciones',6,14,false),
+('A mi tambien me está pasando lo mismo, alguno sabe la solución?',6,19,false),
+('Hola hay alguien ahi...?',6,19,false),
+('La solución está en el primer mensaje',6,2,true),
+('Yo uso PgAdmin para Postgres',7,1,false),
+('A mi me gusta Workbench para Mysql',7,3,false),
+('Yo estoy usando Navicat Premium, hay varios crack en internet, y puedes abrir cualquier tipo de base de datos',7,2,false),
+('Si Navicat es buenisimo, pero consume mucho recursos y a veces se cuelga, yo soy de la vieja escuela y uso Heidy =)',7,1,true),
+('Lo mejor es que repases los conceptos de POO antes de continuar',8,1,false),
+('Bueno es cuando creas uel mismo metodo o constructor pero con diferente numero de parametros, creo!',8,18,false),
+('Yo tengo el mismo problema, alguno nos puede ayudar?',10,16,false);
