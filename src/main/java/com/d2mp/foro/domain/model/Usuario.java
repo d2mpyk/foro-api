@@ -5,7 +5,12 @@ import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.domain.enums.Perfil;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "Usuario")
@@ -15,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,5 +53,48 @@ public class Usuario {
             this.contrasena = dtoActualizarUsuarios.contrasena();
         if (dtoActualizarUsuarios.perfil() != null)
             this.perfil = Perfil.fromString(dtoActualizarUsuarios.perfil());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        //
+        switch (perfil) {
+            case ADMINISTRADOR:
+                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                break;
+            case ESTUDIANTE:
+                authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+                break;
+            case INSTRUCTOR:
+                authorities.add(new SimpleGrantedAuthority("ROLE_INSTRUCTOR"));
+                break;
+            case MODERADOR:
+                authorities.add(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+                break;
+        }
+        return authorities;
+    }
+    @Override
+    public String getUsername(){ return email; }
+    @Override
+    public String getPassword() {
+        return contrasena;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return activo;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return activo;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return activo;
+    }
+    @Override
+    public boolean isEnabled() {
+        return activo;
     }
 }

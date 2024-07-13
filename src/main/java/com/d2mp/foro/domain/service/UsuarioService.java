@@ -56,7 +56,7 @@ public class UsuarioService {
     }
 
     public DTOListarUsuarios registrarUsuario(DTORegistrarUsuario dtoRegistrarUsuario) {
-        if (usuarioRepository.findByEmail(dtoRegistrarUsuario.email()).isPresent())
+        if (usuarioRepository.findByEmail(dtoRegistrarUsuario.email()) != null)
             throw new IntegrityCheck("El usuario ya se encuentra registrado.");
         else {
             Usuario usuarioRegistro = new Usuario(dtoRegistrarUsuario);
