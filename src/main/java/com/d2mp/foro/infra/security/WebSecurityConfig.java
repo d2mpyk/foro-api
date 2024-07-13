@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Deshabilitar CSRF (STATEFULL -> STATELESS)
                 .sessionManagement(sessm -> sessm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Disable Sessions
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST,"/login","/usuarios").permitAll() // Acceso a login y Registro
+                        .requestMatchers(HttpMethod.POST,"/login").permitAll() // Acceso a login y Registro
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll() // Acceso a recursos estáticos
                         .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Acceso a Documentación
                         .anyRequest().authenticated()

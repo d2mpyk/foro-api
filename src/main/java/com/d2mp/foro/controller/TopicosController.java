@@ -4,6 +4,7 @@ import com.d2mp.foro.domain.dto.topicos.DTOActualizarTopico;
 import com.d2mp.foro.domain.dto.topicos.DTOListarTopicos;
 import com.d2mp.foro.domain.dto.topicos.DTORegistrarTopico;
 import com.d2mp.foro.domain.service.TopicoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/topicos")
+@SecurityRequirement(name = "bearer-key")
 public class TopicosController {
     @Autowired
     TopicoService topicoService;

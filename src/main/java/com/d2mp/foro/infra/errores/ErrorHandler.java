@@ -4,6 +4,7 @@ import com.d2mp.foro.domain.dto.errores.DTOErrorHandler;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,11 @@ public class ErrorHandler {
     }
     @ExceptionHandler(IntegrityCheck.class)
     public ResponseEntity integrityCheck(Exception error){
+        return ResponseEntity.badRequest().body(error.getMessage());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity userCheck(Exception error){
         return ResponseEntity.badRequest().body(error.getMessage());
     }
     // POST blank fields

@@ -19,6 +19,6 @@ public class AuthenticationService implements UserDetailsService {
         UserDetails userDetails = usuarioRepository.findByEmail(username);
         if (userDetails != null)
             return userDetails;
-        else throw new IntegrityCheck(STR."El usuario: \{username} no está registrado.");
+        else throw new UsernameNotFoundException(STR."El usuario: \{username} no está registrado.");
     }
 }

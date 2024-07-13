@@ -4,6 +4,7 @@ import com.d2mp.foro.domain.dto.usuarios.DTOActualizarUsuarios;
 import com.d2mp.foro.domain.dto.usuarios.DTOListarUsuarios;
 import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.domain.service.UsuarioService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
+@SecurityRequirement(name = "bearer-key")
 public class UsuariosController {
     @Autowired
     private UsuarioService usuarioService;

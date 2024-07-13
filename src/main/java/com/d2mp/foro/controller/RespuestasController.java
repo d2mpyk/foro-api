@@ -4,6 +4,7 @@ import com.d2mp.foro.domain.dto.respuestas.DTOActualizarRespuesta;
 import com.d2mp.foro.domain.dto.respuestas.DTOListarRespuestas;
 import com.d2mp.foro.domain.dto.respuestas.DTORegistrarRespuesta;
 import com.d2mp.foro.domain.service.RespuestaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/respuestas")
+@SecurityRequirement(name = "bearer-key")
 public class RespuestasController {
     @Autowired
     private RespuestaService respuestaService;
