@@ -6,7 +6,6 @@ import com.d2mp.foro.domain.dto.usuarios.DTORegistrarUsuario;
 import com.d2mp.foro.infra.errores.IntegrityCheck;
 import com.d2mp.foro.domain.model.Usuario;
 import com.d2mp.foro.domain.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
-    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public Page<DTOListarUsuarios> listarUsuarios(Pageable pageable){
